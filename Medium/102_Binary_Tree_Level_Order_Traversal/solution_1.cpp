@@ -11,49 +11,55 @@
  */
 class Solution {
 public:
-    int getHeight(TreeNode* node)
+     int getDepth(TreeNode* root)
     {
-        if(node == NULL) return 0;
+        if(root == NULL) return 0;
         else
         {
-            int l_h = getHeight(node->left);
-            int r_h =  getHeight(node->right);
-            if(l_h > r_h) return l_h+1;
-            else return r_h + 1;
+            int left_len = 1+getDepth(root->left);
+            int right_len = 1+getDepth(root->right);
+            return max(left_len,right_len);
         }
     }
-    vector<int> levelTraverse(TreeNode* node, int level, vector<int> vec)
+    vector<vector<int>> levelNodes(TreeNode* root, int level,  vector<vector<int>> vec)
     {
-        if(node == NULL) return vec;
-        if(level == 1) {
-            vec.push_back(node->val);
-            return vec;
-        }
+        if(root == NULL) return vec;
         else
         {
-            vec =  levelTraverse(node->left, level -1, vec);
-            vec = levelTraverse(node->right, level -1, vec);
+            vec = levelNodes(root->left, level-1, vec);
+            vec = levelNodes(root->right, level-1, vec);
+            vec[level].push_back(root->val);
             return vec;
+           
         }
     }
-    vector<double> averageOfLevels(TreeNode* root) {
-        vector<double> result;
-        int h =  getHeight(root);
-        for(int i=1; i<=h; i++)
+    vector<vector<int>> levelOrder(TreeNode* root) {
+       
+        int level =getDepth(root);
+        vector<vector<int>> vec(level);        
+        // vec = levelNodes(root,level-1,vec);        
+        // reverse(vec.begin(), vec.end()); 
+        int i=0;
+        queue<TreeNode*> p;
+        p.push(root);
+        while( ! p.empty() && root!=NULL)
         {
-            vector<int> temp;
-            temp = levelTraverse(root, i, temp);
-            double sum = 0.0;
-            if(temp.size()>0)
+            int sz=p.size();
+            for(int j=0; j<sz;j++)
             {
-                for(int j=0; j< temp.size(); j++)
-                {
-                    sum= sum + temp[j];
-                }
-                double avg = sum/temp.size();
-                result.push_back(avg);
-            }   
+                TreeNode* u= p.front();
+                p.pop();
+                vec[i].push_back(u->val);
+                // cout<<u->left->val<<endl;
+                // cout<<u->right->val<<endl;
+                if(u->left != NULL)
+                    p.push(u->left);
+                if(u->right != NULL)
+                    p.push(u->right);
+            }
+            i++;
+                
         }
-        return result;
+       return vec;
     }
 };
