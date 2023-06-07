@@ -13,49 +13,47 @@ class Solution {
 public:
     int getHeight(TreeNode* node)
     {
-        if(node == NULL)
-            return 0;
+        if(node == NULL) return 0;
         else
         {
-            int left_height = getHeight(node->left);
-            int right_height = getHeight(node->right);
-            
-            if(left_height > right_height)
-                return left_height+1;
-            else return right_height+1;
+            int l_h = getHeight(node->left);
+            int r_h =  getHeight(node->right);
+            if(l_h > r_h) return l_h+1;
+            else return r_h + 1;
         }
     }
     vector<int> levelTraverse(TreeNode* node, int level, vector<int> vec)
     {
-        if(node == NULL)
-            return vec;
-        if(level == 1)
-        {
-            
+        if(node == NULL) return vec;
+        if(level == 1) {
             vec.push_back(node->val);
-             return vec;
+            return vec;
         }
-            
-        else 
+        else
         {
-            vec = levelTraverse(node->left, level-1, vec);
-            vec = levelTraverse(node->right, level-1, vec);
+            vec =  levelTraverse(node->left, level -1, vec);
+            vec = levelTraverse(node->right, level -1, vec);
             return vec;
         }
     }
-    vector<int> rightSideView(TreeNode* root) {
-        vector<int> result;
-       queue<TreeNode*> q;
-        // q = root;
-        int h= getHeight(root);
-        for(int i =1; i<=h; i++ )
+    vector<double> averageOfLevels(TreeNode* root) {
+        vector<double> result;
+        int h =  getHeight(root);
+        for(int i=1; i<=h; i++)
         {
-             vector<int> temp;
+            vector<int> temp;
             temp = levelTraverse(root, i, temp);
-            if(temp.size() > 0)
-                result.push_back(temp[temp.size() -1]);
+            double sum = 0.0;
+            if(temp.size()>0)
+            {
+                for(int j=0; j< temp.size(); j++)
+                {
+                    sum= sum + temp[j];
+                }
+                double avg = sum/temp.size();
+                result.push_back(avg);
+            }   
         }
-       
         return result;
     }
 };
