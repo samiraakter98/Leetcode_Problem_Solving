@@ -9,16 +9,10 @@ public:
             map1[s[i]]++;  
             map2[t[i]]++;
         }
-        // for(int i=0;i<s.length();i++)
-        // {
-        //     cout<<s[i]<<" "<<map1[s[i]]<<endl;
-        //     cout<<t[i]<<" "<<map1[t[i]]<<endl;
-        // }
         for(int i=0;i<t.length(); i++)
         {
             if(map1[s[i]] !=  map2[s[i]])
             {
-                // cout<<s[i]<<" "<<map1[s[i]]<<":"<<t[i]<<" "<<map2[t[i]]<<endl;
                 return false;
             }
         }
