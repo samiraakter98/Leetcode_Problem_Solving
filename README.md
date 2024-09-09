@@ -1,1 +1,2 @@
-# Leetcode_Top_interview_150
+# Leetcode_Problem_Solving
+This repository contains my solutions to various LeetCode problems, covering a wide range of topics like algorithms, data structures, dynamic programming, and more. Each solution is implemented in C++, with well-structured, readable code and occasional comments explaining the approach. The goal is to continuously improve problem-solving skills and share optimized solutions with the community. 
